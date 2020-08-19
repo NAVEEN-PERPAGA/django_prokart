@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+
+
+<div class="navbar bg-primary navbar-light fixed-top"
+     style="box-shadow: 5px 5px 20px blue; font-weight: bold;">
+    <a class="navbar-brand" href="{% url 'prokart:index' %}"
+       style="font-size: 25px; font-family: 'Sofia'; color:#FFFFFF">PROKART</a>
+<!--    <input class="form-control navbar-left" type="text"-->
+<!--           placeholder="Search.." style="width: 400px">-->
+</div>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-2 card" style="box-shadow: 5px 5px 5px grey;">
+            <h2 style="font-weight: bold;">SELECT BY</h2>
+
+            <a class="btn btn-primary" data-toggle="collapse" href="#RAM">RAM</a>
+            <div id="RAM" class="collapse">
+                <form action="{% url 'prokart:ram' %}" method="get">
+                    <br>
+                    {% csrf_token %}
+                    <input type="checkbox" name="ram" value="4" id="1">
+                    <label for="1"><b> 4 GB </b></label>
+                    <br>
+                    <input type="checkbox" name="ram" value="6" id="2">
+                    <label for="2"><b> 6 GB </b></label>
+                    <br>
+                    <input type="checkbox" name="ram" value="8" id="3">
+                    <label for="3"><b> 8 GB </b></label>
+                    <br>
+                    <input class="btn btn-success" type="submit" value="SELECT">
+                </form>
+            </div>
+            <br>
+
+            <a class="btn btn-primary" data-toggle="collapse" href="#STORAGE">STORAGE</a>
+            <div id="STORAGE" class="collapse">
+                <form action="{% url 'prokart:storage' %}" method="get">
+                    <br>
+                    {% csrf_token %}
+                    <input type="checkbox" name="storage" value="32" id="4">
+                    <label for="4"><b> 32 GB </b></label>
+                    <br>
+                    <input type="checkbox" name="storage" value="64" id="5">
+                    <label for="5"><b> 64 GB </b></label>
+                    <br>
+                    <input type="checkbox" name="storage" value="128" id="6">
+                    <label for="6"><b> 128 GB </b></label>
+                    <br>
+                    <input class="btn btn-success" type="submit" value="SELECT">
+                </form>
+            </div>
+            <br>
+
+            <a class="btn btn-primary" data-toggle="collapse" href="#DISPLAY">DISPLAY</a>
+            <div id="DISPLAY" class="collapse">
+                <form action="{% url 'prokart:display' %}" method="get">
+                    <br>
+                    {% csrf_token %}
+                    <input type="checkbox" name="display" value="hd" id="7">
+                    <label for="7"><b> HD </b></label>
+                    <br>
+                    <input type="checkbox" name="display" value="fhd" id="8">
+                    <label for="8"><b> FHD+ </b></label>
+                    <br>
+                    <input type="checkbox" name="display" value="qhd" id="9">
+                    <label for="9"><b> QHD </b></label>
+                    <br>
+                    <input class="btn btn-success" type="submit" value="SELECT">
+                </form>
+            </div>
+            <br>
+
+            <a class="btn btn-primary" data-toggle="collapse" href="#PRICE">PRICE</a>
+            <div id="PRICE" class="collapse">
+                <form action="{% url 'prokart:price' %}" method="get">
+                    <br>
+                    {% csrf_token %}
+                    <input type="checkbox" name="price" value="upto 20" id="10">
+                    <label for="10"><b> UPTO 20,000 </b></label>
+                    <br>
+                    <input type="checkbox" name="price" value="20-50" id="11">
+                    <label for="11"><b> 20,000 to 50,000 </b></label>
+                    <br>
+                    <input type="checkbox" name="price" value="50-99" id="12">
+                    <label for="12"><b> 50,000 to 99,000 </b></label>
+                    <br>
+                    <input class="btn btn-success" type="submit" value="SELECT">
+                </form>
+            </div>
+
+        </div>
+
+        <div class="col-md-10">
+            <div class="row" id="my_phone">
+                {% for phone in phones %}
+                <div class="col-md-3">
+                    <div class="card mb-4" style="box-shadow: 5px 5px 10px grey;">
+                        <img class="card-img-top" src="{% static phone.image %}" style="width:200px; height:200px">
+                        <div class="card-body">
+                            <h4 class="card-title" style="font-weight:bold">{{ phone.name }}</h4>
+                            <p style="font-weight:bold; font-size:18px">
+                                RAM: {{ phone.ram }} GB<br>
+                                DISPLAY: {{ phone.display }}<br>
+                                STORAGE: {{ phone.storage }} GB<br>
+                                PRICE: {{ phone.price }} INR<br>
+                            </p>
+                            <a href="{% url 'prokart:comment' phone.id %}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
